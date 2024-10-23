@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "NBA Database Mobile"
 include(":app")
- 
+include(":data")
