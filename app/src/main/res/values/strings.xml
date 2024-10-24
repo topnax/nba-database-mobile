@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">NBA Database Mobile</string>
+    <string name="loading">Loading</string>
+    <string name="player_list_title">NBA Player List</string>
+    <string name="player_detail_title">Player Detail</string>
+    <string name="player_list_error">An error occurred while loading the players</string>
+    <string name="reload">Reload</string>
+    <string name="player_detai_error_loading_player">Error loading player</string>
+    <string name="team_detail_error">Error loading team</string>
 </resources>

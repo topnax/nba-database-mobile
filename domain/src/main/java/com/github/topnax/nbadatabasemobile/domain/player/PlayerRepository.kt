@@ -1,12 +1,13 @@
 package com.github.topnax.nbadatabasemobile.domain.player
 
+import com.github.topnax.nbadatabasemobile.data.Page
 import com.github.topnax.nbadatabasemobile.data.Player
 
 interface PlayerRepository {
     suspend fun getPlayers(
-        page: Int,
+        cursor: Int,
         pageSize: Int
-    ): List<Player>
+    ): Page<Int, List<Player>>
 
     suspend fun getPlayerById(
         playerId: String

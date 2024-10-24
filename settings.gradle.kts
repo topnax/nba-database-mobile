@@ -23,3 +23,5 @@ rootProject.name = "NBA Database Mobile"
 include(":app")
 include(":data")
 include(":domain")
+include(":balldontlieapi")
+include(":implementation")

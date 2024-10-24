@@ -13,6 +13,11 @@ composeNavigation = "2.8.3"
 kotlinXJsonSerialization = "1.6.3"
 koin = "4.0.0"
 timber = "5.0.1"
+retrofit = "2.9.0"
+okhttp = "4.10.0"
+coroutines = "1.7.0"
+retrofitKotlinSerialization = "1.0.0"
+paging = "3.3.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -37,6 +42,14 @@ koin-core-viewmodel = { module = "io.insert-koin:koin-core-viewmodel" }
 koin-core-viewmodel-navigation = { module = "io.insert-koin:koin-core-viewmodel-navigation" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-kotlinx-serialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofitKotlinSerialization" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+pagingRuntime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+pagingCompose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.ApplicationBuildType
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -19,8 +21,17 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
+        getByName("debug") {
+            addBalldontlieApiKeyFromEnv()
+        }
         release {
+            addBalldontlieApiKeyFromEnv()
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -56,9 +67,17 @@ dependencies {
     implementation(libs.koin.core.viewmodel)
     implementation(libs.koin.core.viewmodel.navigation)
     implementation(libs.koin.androidx.compose)
+    implementation(libs.okhttp)
+    implementation(libs.retrofit)
+    implementation(libs.pagingRuntime)
+    implementation(libs.pagingCompose)
     implementation(project(":data"))
     implementation(libs.timber)
+    implementation(libs.retrofit.kotlinx.serialization)
     implementation(project(":data"))
+    implementation(project(":implementation"))
+    implementation(project(":balldontlieapi"))
+    implementation(project(":domain"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -66,4 +85,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+private fun ApplicationBuildType.addBalldontlieApiKeyFromEnv() {
+    val apiKey = System.getenv("BALLDONTLIE_API_KEY") // TODO raise exception if not set (but don't fail during IDE sync)
+    buildConfigField("String", "BALLDONTLIE_API_KEY", "\"$apiKey\"")
 }
