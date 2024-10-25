@@ -2,6 +2,11 @@
 
 An Android application built with Jetpack Compose that leverages Retrofit to interact with the free [balldontlie API](https://www.balldontlie.io/) for retrieving NBA data.
 
+| Players List                             | Player Detail                             | Team Detail                             |
+|------------------------------------------|-------------------------------------------|-----------------------------------------|
+| ![Players List](doc/screenshots/1.jpeg)  | ![Player Detail](doc/screenshots/2.jpeg)  | ![Team Detail](doc/screenshots/3.jpeg)  |
+
+
 ## Features
 
 - **Jetpack Compose**: Modern toolkit for building native UI.
