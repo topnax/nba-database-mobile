@@ -13,16 +13,15 @@ import retrofit2.Retrofit
 val networkModule = module {
 
     single {
-        // API Key
-        val apiKey = BuildConfig.BALLDONTLIE_API_KEY
+        val ballDontLieApiKey = BuildConfig.BALLDONTLIE_API_KEY
 
-        require(apiKey.isNotBlank()) { "balldontlie API key is missing" }
+        require(ballDontLieApiKey.isNotBlank()) { "balldontlie API key is missing" }
 
         // Create an interceptor to add the Authorization header
         val authInterceptor = Interceptor { chain ->
             val originalRequest = chain.request()
             val requestWithAuth = originalRequest.newBuilder()
-                .header("Authorization", apiKey)
+                .header("Authorization", ballDontLieApiKey)
                 .build()
             chain.proceed(requestWithAuth)
         }

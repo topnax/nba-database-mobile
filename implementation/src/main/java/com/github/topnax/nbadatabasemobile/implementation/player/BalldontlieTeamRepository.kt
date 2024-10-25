@@ -10,13 +10,14 @@ class BalldontlieTeamRepository(
     api: BalldontlieApi,
     private val dispatcher: CoroutineDispatcher
 ) : TeamRepository {
-
+    // backing field to prevent direct access to the API
     private val _api = api
 
     override suspend fun getTeamById(teamId: String): Team {
         return useApi { getTeamById(teamId = teamId.toInt()) }.data.toDataTeam()
     }
 
+    // TODO refactor into reusable function for BalldontlieApi
     private suspend fun <T> useApi(block: suspend BalldontlieApi.() -> T): T =
         withContext(dispatcher) {
             block(_api)
@@ -24,7 +25,9 @@ class BalldontlieTeamRepository(
 
 }
 
-private fun com.github.topnax.nbadatabasemobile.balldontlieapi.Team.toDataTeam() =
+private typealias BalldontlieTeam = com.github.topnax.nbadatabasemobile.balldontlieapi.Team
+
+private fun BalldontlieTeam.toDataTeam() =
     Team(
         id = this.id.toString(),
         abbreviation = this.abbreviation,

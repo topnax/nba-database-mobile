@@ -11,9 +11,10 @@ class NbaDatabaseApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // plant timber debug tree if in debug
-        // TODO enable only in debug
-        Timber.plant(Timber.DebugTree())
+        if (BuildConfig.DEBUG) {
+            // plant timber debug tree if in debug
+            Timber.plant(Timber.DebugTree())
+        }
 
         startKoin {
             modules(

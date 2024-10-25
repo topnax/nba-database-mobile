@@ -20,15 +20,3 @@ data class Player(
 ) {
     val fullName = "$firstName $lastName"
 }
-
-/**
- * Represents a preview of an NBA player.
- */
-data class PlayerPreview(
-    val id: Int,
-    val name: String,
-    val position: String,
-    val jerseyNumber: String,
-    val teamName: String,
-    val teamId: Int
-)

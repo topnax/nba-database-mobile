@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SlideInAnimatedVisibility(
     isVisible: Boolean,
-    content : @Composable () -> Unit,
+    content: @Composable () -> Unit,
 ) {
     val density = LocalDensity.current
     AnimatedVisibility(
@@ -22,10 +22,10 @@ fun SlideInAnimatedVisibility(
             // Slide in from 40 dp from the top.
             with(density) { -40.dp.roundToPx() }
         } + expandVertically(
-// Expand from the top.
+            // Expand from the top.
             expandFrom = Alignment.Top
         ) + fadeIn(
-// Fade in with the initial alpha of 0.3f.
+            // Fade in with the initial alpha of 0.3f.
             initialAlpha = 0.3f
         ),
         exit = fadeOut()

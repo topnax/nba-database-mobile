@@ -21,10 +21,11 @@ abstract class ContractViewModel<State, Event> : ViewModel() {
 
     /**
      * Calls the [updateFx] function in the main thread.
-     * State updates in vide models should only be made in via the [updateFx]
+     * State updates in view models should only be made in via the [updateFx]
      * function.
      */
     protected fun updateState(updateFx: (State) -> Unit) {
+        // TODO could be improved so that the updateFx returns the new state
         viewModelScope.launch {
             withContext(context = Dispatchers.Main) {
                 updateFx.invoke(state.value)

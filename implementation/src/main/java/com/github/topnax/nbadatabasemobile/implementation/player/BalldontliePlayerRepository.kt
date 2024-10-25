@@ -13,6 +13,7 @@ class BalldontliePlayerRepository(
     api: BalldontlieApi,
     private val dispatcher: CoroutineDispatcher
 ): PlayerRepository {
+    // backing field to prevent direct access to the API
     private val _api = api
 
     override suspend fun getPlayers(cursor: Int, pageSize: Int): Page<Int, List<Player>> {
@@ -31,12 +32,16 @@ class BalldontliePlayerRepository(
         return useApi { getPlayerById(playerId = playerId.toInt()) }.data.toDataPlayer()
     }
 
+    // TODO refactor into reusable function for BalldontlieApi
     private suspend fun <T> useApi(block: suspend BalldontlieApi.() -> T): T =
         withContext(dispatcher) {
             block(_api)
         }
 }
-private fun com.github.topnax.nbadatabasemobile.balldontlieapi.Player.toDataPlayer() = Player(
+
+private typealias BalldontliePlayer = com.github.topnax.nbadatabasemobile.balldontlieapi.Player
+
+private fun BalldontliePlayer.toDataPlayer() = Player(
     id = this.id.toString(),
     firstName = this.firstName,
     lastName = this.lastName,

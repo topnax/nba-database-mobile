@@ -20,11 +20,11 @@ import org.koin.core.parameter.parametersOf
 fun NbaDatabaseNavigation() {
     val navController = rememberNavController()
 
+    // Type-safe routing
     NavHost(
         navController = navController,
         startDestination = PlayersListDestination
     ) {
-
         composable<PlayersListDestination> {
             PlayersListScreen(navController = navController)
         }

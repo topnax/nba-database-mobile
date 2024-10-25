@@ -1,6 +1,5 @@
 package com.github.topnax.nbadatabasemobile.presentation.screen.teamdetail
 
-import com.github.topnax.nbadatabasemobile.data.Player
 import com.github.topnax.nbadatabasemobile.data.Team
 
 

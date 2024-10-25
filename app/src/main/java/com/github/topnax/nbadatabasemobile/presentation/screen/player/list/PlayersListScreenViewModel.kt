@@ -2,8 +2,6 @@ package com.github.topnax.nbadatabasemobile.presentation.screen.player.list
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.github.topnax.nbadatabasemobile.data.Page
-import com.github.topnax.nbadatabasemobile.data.Player
 import com.github.topnax.nbadatabasemobile.domain.paginator.DefaultPaginator
 import com.github.topnax.nbadatabasemobile.domain.player.PlayerRepository
 import com.github.topnax.nbadatabasemobile.presentation.screen.player.list.PlayersListViewModelScreenContract.Event
@@ -21,6 +19,7 @@ class PlayersListViewScreenModel(
     override val state = _state
 
     private val pageSize = 35
+
     private val playerPaginator = DefaultPaginator(
         initialKey = _state.value.page,
         onLoadUpdated = { isLoading ->
@@ -31,7 +30,7 @@ class PlayersListViewScreenModel(
             }
         },
         onRequest = { key ->
-            Timber.tag("pytlog").d("getting key: $key")
+            Timber.d("getting key: $key")
             runCatching {
                 playerRepository.getPlayers(key, pageSize)
             }
@@ -48,7 +47,7 @@ class PlayersListViewScreenModel(
             }
         },
         onSuccess = { page, newKey ->
-            Timber.tag("pytlog").d("new key: $newKey")
+            Timber.d("new key: $newKey")
             updateState {
                 _state.value = it.copy(
                     players = (it.players ?: emptyList()) + page.data,
@@ -81,7 +80,7 @@ class PlayersListViewScreenModel(
     }
 
 
-    fun reload() {
+    private fun reload() {
         playerPaginator.reset()
         state.value = state.value.copy(
             players = null,

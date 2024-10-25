@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.github.topnax.nbadatabasemobile.R
 import com.github.topnax.nbadatabasemobile.data.Player
@@ -48,7 +47,7 @@ fun PlayersListScreenContent(
             // Top bar that gradually hides as you scroll
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = stringResource(R.string.player_list_title), fontSize = 24.sp)
+                    Text(text = stringResource(R.string.player_list_title), style = MaterialTheme.typography.titleLarge)
                 },
                 scrollBehavior = scrollBehavior
             )

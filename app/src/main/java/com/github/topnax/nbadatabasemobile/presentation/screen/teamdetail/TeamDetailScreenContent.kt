@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.sp
 import com.github.topnax.nbadatabasemobile.R
 import com.github.topnax.nbadatabasemobile.data.Team
 import com.github.topnax.nbadatabasemobile.presentation.screen.teamdetail.TeamDetailScreenContract.Event
@@ -33,6 +33,7 @@ fun TeamDetailScreenContent(
 ) {
 
     LaunchedEffect(state.team) {
+        // reload on recomposition only if team is null
         if (state.team == null) {
             onEvent(Event.ReloadTeam)
         }
@@ -42,7 +43,7 @@ fun TeamDetailScreenContent(
             // Top bar that gradually hides as you scroll
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = state.teamName, fontSize = 24.sp)
+                    Text(text = state.teamName, style = MaterialTheme.typography.titleLarge)
                 },
             )
         },
@@ -86,32 +87,30 @@ private fun TeamDetail(team: Team) {
         modifier = Modifier.fillMaxWidth()
     ) {
         BasicPropertyRow(
-            label = "Full Name",
+            label = stringResource(R.string.full_name),
             value = team.fullName
         )
         BasicPropertyRow(
-            label = "Abbreviation",
+            label = stringResource(R.string.abbreviation),
             value = team.abbreviation
         )
         team.conference?.let {
             BasicPropertyRow(
-                label = "Conference",
+                label = stringResource(R.string.conference),
                 value = it
             )
         }
         team.division?.let {
             BasicPropertyRow(
-                label = "Division",
+                label = stringResource(R.string.division),
                 value = it
             )
         }
         team.city?.let {
             BasicPropertyRow(
-                label = "City",
+                label = stringResource(R.string.city),
                 value = it
             )
         }
     }
 }
-
-
