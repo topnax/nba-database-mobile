@@ -94,19 +94,19 @@ private fun TeamDetail(team: Team) {
             label = stringResource(R.string.abbreviation),
             value = team.abbreviation
         )
-        team.conference?.let {
+        team.conference?.also {
             BasicPropertyRow(
                 label = stringResource(R.string.conference),
                 value = it
             )
         }
-        team.division?.let {
+        team.division?.also {
             BasicPropertyRow(
                 label = stringResource(R.string.division),
                 value = it
             )
         }
-        team.city?.let {
+        team.city?.also {
             BasicPropertyRow(
                 label = stringResource(R.string.city),
                 value = it

@@ -75,6 +75,7 @@ fun PlayerDetailScreenContent(
                     if (state.player != null) {
                         PlayerDetail(
                             player = state.player,
+                            // setup navigation to team detail screen only if teamPreview is not null
                             onTeamClicked = state.player.teamPreview?.let { teamPreview ->
                                 {
                                     navController.navigate(
@@ -98,28 +99,28 @@ private fun PlayerDetail(player: Player, onTeamClicked: (() -> Unit)?) {
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
-        player.teamPreview?.let {
+        player.teamPreview?.also {
             BasicPropertyRow(label = stringResource(R.string.team), value = it.name, onClick = onTeamClicked)
         }
         BasicPropertyRow(label = stringResource(R.string.position), value = player.position)
-        player.height?.let {
+        player.height?.also {
             BasicPropertyRow(label = stringResource(R.string.height), value = it)
         }
-        player.weight?.let {
+        player.weight?.also {
             BasicPropertyRow(label = stringResource(R.string.weight), value = it.toString())
         }
-        player.jerseyNumber?.let { BasicPropertyRow(label = stringResource(R.string.jersey_number), value = it) }
-        player.college?.let {
+        player.jerseyNumber?.also { BasicPropertyRow(label = stringResource(R.string.jersey_number), value = it) }
+        player.college?.also {
             BasicPropertyRow(label = stringResource(R.string.college), value = it)
         }
-        player.country?.let { BasicPropertyRow(label = stringResource(R.string.country), value = it) }
-        player.draftYear?.let {
+        player.country?.also { BasicPropertyRow(label = stringResource(R.string.country), value = it) }
+        player.draftYear?.also {
             BasicPropertyRow(label = stringResource(R.string.draft_year), value = it.toString())
         }
-        player.draftRound?.let {
+        player.draftRound?.also {
             BasicPropertyRow(label = stringResource(R.string.draft_round), value = it.toString())
         }
-        player.draftNumber?.let {
+        player.draftNumber?.also {
             BasicPropertyRow(label = stringResource(R.string.draft_number), value = it.toString())
         }
 
