@@ -8,6 +8,11 @@ An Android application built with Jetpack Compose that leverages Retrofit to int
 
 
 ## Features
+- endless scroll for viewing NBA players
+- view NBA player details
+- view a player's team details
+
+## Architectrure & Dependencies
 
 - **Jetpack Compose**: Modern toolkit for building native UI.
 - **Retrofit**: Simplifies API interactions.
