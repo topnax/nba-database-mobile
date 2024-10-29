@@ -38,7 +38,9 @@ fun PlayersListScreenContent(
     onEvent: (PlayersListViewModelScreenContract.Event) -> Unit,
 ) {
     LaunchedEffect(true) {
-        onEvent(PlayersListViewModelScreenContract.Event.LoadNextItems)
+        if (state.players.isNullOrEmpty()) {
+            onEvent(PlayersListViewModelScreenContract.Event.LoadNextItems)
+        }
     }
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
