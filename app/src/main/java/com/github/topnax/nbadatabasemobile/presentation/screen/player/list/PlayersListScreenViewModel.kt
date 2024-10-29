@@ -11,14 +11,13 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class PlayersListViewScreenModel(
-    private val playerRepository: PlayerRepository
+    private val playerRepository: PlayerRepository,
+    private val pageSize: Int = 35
 ) : ContractViewModel<State, Event>() {
 
     private val _state = mutableStateOf(State())
 
     override val state = _state
-
-    private val pageSize = 35
 
     private val playerPaginator = DefaultPaginator(
         initialKey = 0,
