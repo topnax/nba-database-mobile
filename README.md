@@ -32,6 +32,8 @@ An Android application built with Jetpack Compose that leverages Retrofit to int
 - **domain**: Contains definition of business logic interfaces.
 - **implementation**: Provides implementations for domain interfaces.
 
+![Architecture Diagram](doc/arch-diagram.png)
+
 ## Setup
 
 ### Prerequisites
