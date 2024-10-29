@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -53,7 +55,7 @@ fun PlayerDetailScreenContent(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding),
+                    .padding(padding)
             ) {
                 when {
                     state.isLoading ->
@@ -97,7 +99,9 @@ fun PlayerDetailScreenContent(
 @Composable
 private fun PlayerDetail(player: Player, onTeamClicked: (() -> Unit)?) {
     Column(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
     ) {
         player.teamPreview?.also {
             BasicPropertyRow(label = stringResource(R.string.team), value = it.name, onClick = onTeamClicked)
