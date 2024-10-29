@@ -1,5 +1,7 @@
+package com.github.topnax.nbadatabasemobile.implementation.paginator
 
-package com.github.topnax.nbadatabasemobile.domain.paginator
+import com.github.topnax.nbadatabasemobile.domain.paginator.Paginator
+
 
 /**
  * A default implementation of a paginator.
@@ -20,12 +22,12 @@ class DefaultPaginator<Key, Item>(
     /**
      * Used to request the next page
      */
-    private val onRequest: suspend (nextKey: Key) -> Result<Item>,
+    private val onRequest: suspend (nextKey: Key) -> Item,
 
     /**
      * Returns next key to load from already loaded data
      */
-    private val getNextKey: suspend (Item) -> Key,
+    private val getNextKey: suspend (Item) -> Key?,
 
     /**
      * Invoked with an error when loading fails
@@ -34,22 +36,30 @@ class DefaultPaginator<Key, Item>(
     /**
      * Invoked when a new page is loaded. Both the new items and the new key are available via the parameters.
      */
-    private val onSuccess: suspend (items: Item, newKey: Key) -> Unit,
+    private val onSuccess: suspend (items: Item, newKey: Key?) -> Unit,
+
+    private val onEndReached: () -> Unit
 ) : Paginator<Key, Item> {
 
-    private var nextKeyToBeLoaded = initialKey
+    private var nextKeyToBeLoaded: Key? = initialKey
     private var isMakingRequest = false
 
     override suspend fun loadNextItems() {
+        val nextPageKey = nextKeyToBeLoaded
         if (isMakingRequest) {
             return
         }
+        if (nextPageKey == null) {
+            onEndReached()
+            return
+        }
+
         isMakingRequest = true
 
         onLoadUpdated(true)
 
         // Load the next page
-        val result = onRequest(nextKeyToBeLoaded)
+        val result = runCatching { onRequest(nextPageKey) }
 
         isMakingRequest = false
 
@@ -66,6 +76,9 @@ class DefaultPaginator<Key, Item>(
         nextKeyToBeLoaded = getNextKey(item)
         onSuccess(item, nextKeyToBeLoaded)
         onLoadUpdated(false)
+        if (nextKeyToBeLoaded == null) {
+            onEndReached()
+        }
     }
 
     override fun reset() {

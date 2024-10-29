@@ -2,8 +2,8 @@ package com.github.topnax.nbadatabasemobile.presentation.screen.player.list
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.github.topnax.nbadatabasemobile.domain.paginator.DefaultPaginator
 import com.github.topnax.nbadatabasemobile.domain.player.PlayerRepository
+import com.github.topnax.nbadatabasemobile.implementation.paginator.DefaultPaginator
 import com.github.topnax.nbadatabasemobile.presentation.screen.player.list.PlayersListViewModelScreenContract.Event
 import com.github.topnax.nbadatabasemobile.presentation.screen.player.list.PlayersListViewModelScreenContract.State
 import com.github.topnax.nbadatabasemobile.presentation.viewmodel.ContractViewModel
@@ -21,7 +21,7 @@ class PlayersListViewScreenModel(
     private val pageSize = 35
 
     private val playerPaginator = DefaultPaginator(
-        initialKey = _state.value.page,
+        initialKey = 0,
         onLoadUpdated = { isLoading ->
             updateState {
                 _state.value = it.copy(
@@ -31,12 +31,10 @@ class PlayersListViewScreenModel(
         },
         onRequest = { key ->
             Timber.d("getting key: $key")
-            runCatching {
-                playerRepository.getPlayers(key, pageSize)
-            }
+            playerRepository.getPlayers(key, pageSize)
         },
         getNextKey = { currentPage ->
-            currentPage.nextCursor ?: state.value.page
+            currentPage.nextCursor
         },
         onError = { error ->
             Timber.w(error, "Error loading players")
@@ -51,15 +49,18 @@ class PlayersListViewScreenModel(
             updateState {
                 _state.value = it.copy(
                     players = (it.players ?: emptyList()) + page.data,
-                    page = newKey,
-                    nextPage = page.nextCursor,
-                    endReached = page.nextCursor == null,
                     isError = false
+                )
+            }
+        },
+        onEndReached = {
+            updateState {
+                _state.value = it.copy(
+                    endReached = true
                 )
             }
         }
     )
-
 
     override fun processEvent(event: Event) {
         when (event) {
@@ -84,7 +85,6 @@ class PlayersListViewScreenModel(
         playerPaginator.reset()
         state.value = state.value.copy(
             players = null,
-            page = 0,
             endReached = false,
             isError = false
         )
@@ -92,5 +92,4 @@ class PlayersListViewScreenModel(
             playerPaginator.loadNextItems()
         }
     }
-
 }

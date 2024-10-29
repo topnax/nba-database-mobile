@@ -7,9 +7,7 @@ interface PlayersListViewModelScreenContract {
         val isLoading: Boolean = false,
         val players: List<Player>? = null,
         val isError: Boolean = false,
-        val endReached: Boolean = false,
-        val page: Int = 0,
-        val nextPage: Int? = null,
+        val endReached: Boolean = false
     )
 
     sealed interface Event {
